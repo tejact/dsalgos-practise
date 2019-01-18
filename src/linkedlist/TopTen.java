@@ -11,7 +11,35 @@ public class TopTen {
         head = addFront(head,1);
         printList(head);
         System.out.println("\nLength of list is "+length(head));
+
+        ListNode reversed = reverseList(head);
+        printList(reversed);
     }
+
+    // Reverse Linked List Iterative
+    public static ListNode reverseList(ListNode head){
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next; // no need to assign value as this is not used in condition OR not in right hand side or expressions initially
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    //TODO: Work on this
+    public static ListNode reverseRecursive(ListNode head){
+        //base case
+        if(head == null){
+            return null;
+        }
+        return reverseRecursive(head.next).next = head;
+    }
+
+
 
     // utility methods
     public static void printList(ListNode head){
