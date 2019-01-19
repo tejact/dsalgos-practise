@@ -14,6 +14,7 @@ public class TopTen {
 
         ListNode reversed = reverseList(head);
         printList(reversed);
+        System.out.println(reversed);
     }
 
     // Reverse Linked List Iterative
@@ -36,12 +37,27 @@ public class TopTen {
         if(head == null){
             return null;
         }
-        return reverseRecursive(head.next).next = head;
+        return null;
     }
 
+    public static boolean doesCycleExist(ListNode head){
+        // 0 or 1 element
+        if(head == null || head.next == null){
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = slow.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(fast == slow){
+                return true;
+            }
+        }
+        return false;
+    }
 
-
-    // utility methods
+// utility methods
     public static void printList(ListNode head){
         ListNode curr = head;
         while(curr != null){
