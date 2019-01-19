@@ -48,8 +48,31 @@ class TopTenTest {
 
         assertTrue(doesCycleExist(cycle1));
         assertTrue(doesCycleExist(cycle2));
-
     }
 
+    @Test
+    void intersect_test(){
+        ListNode l1 = new ListNode(0);
+        l1.next = new ListNode(1);
+        l1.next.next = new ListNode(2);
+
+
+        ListNode l2 = new ListNode(0);
+        l2.next = new ListNode(1);
+        l2.next.next = new ListNode(2);
+
+        assertNull(intersect(l1,l2));
+
+        // merged lists
+        l2.next = l1.next;
+        assertEquals(1,intersect(l1,l2).val);
+
+        // One linear list with two pointer in
+        l2.next = l1;
+        assertEquals(0,intersect(l1,l2).val);
+
+        assertNull(intersect(null,l1));
+        assertNull(intersect(l1,null));
+    }
 
 }
