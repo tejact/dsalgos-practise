@@ -2,6 +2,7 @@ package dp2d;
 
 import org.junit.jupiter.api.Test;
 
+import static dp2d.EditDistance.editDistance;
 import static dp2d.LCS.lcs;
 import static dp2d.LCSubstring.lcSubstring;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,5 +23,14 @@ class AllTests {
         assertEquals(4,lcSubstring("abcdxyz","xyzabcd"));
         assertEquals(0,lcSubstring("abcd","xyz"));
         assertEquals(1,lcSubstring("abRcd","xyRz"));
+    }
+
+    @Test
+    void editDistance_simple(){
+        assertEquals(0,editDistance("",""));
+        assertEquals(3,editDistance("abc",""));
+        assertEquals(3,editDistance("","abc"));
+        assertEquals(3,editDistance("horse","ros"));
+        assertEquals(5,editDistance("intention","execution"));
     }
 }
