@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static dp2d.EditDistance.editDistance;
 import static dp2d.LCS.lcs;
 import static dp2d.LCSubstring.lcSubstring;
+import static dp2d.MinCostPath.minCostPath;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AllTests {
@@ -32,5 +33,23 @@ class AllTests {
         assertEquals(3,editDistance("","abc"));
         assertEquals(3,editDistance("horse","ros"));
         assertEquals(5,editDistance("intention","execution"));
+    }
+
+    @Test
+    void minCost_simple(){
+        int[][] a = new int[][]{
+                {1,3,1},
+                {1,5,1},
+                {4,2,1},
+        };
+        assertEquals(7, minCostPath(a));
+
+        int[][] b = new int[][]{
+                {2,1,5,1},
+                {3,4,2,2},
+                {1,2,3,3},
+                {1,3,2,4}
+        };
+        assertEquals(16, minCostPath(b));
     }
 }
