@@ -13,9 +13,27 @@ public class GraphRepresentation {
                 {5,6},
                 {6,3}
         };
-        System.out.println(convertToAdjListDirected(edges));
+        System.out.println("***Undirected Graph****");
         System.out.println(convertToAdjListUnDirected(edges));
-        bfsUnDirected(convertToAdjListUnDirected(edges));
+        bfs(convertToAdjListUnDirected(edges));
+        System.out.println("\n***Directed Graph****");
+        System.out.println(convertToAdjListDirected(edges));
+        // bfs on a directed graph will only print the vertices reachable from the source
+        // but not all the vertices in a graph.
+        bfs(convertToAdjListDirected(edges));
+
+        int[][] adjMap = new int[][]{
+            {0,0,0,0,0,0,0},
+            {0,0,0,0,1,1,0},
+            {0,0,0,1,0,0,0},
+            {0,0,0,0,1,0,0},
+            {0,0,0,0,0,0,1},
+            {0,0,0,0,0,0,0},
+            {0,0,0,1,0,1,0},
+        };
+
+        System.out.println("\n***** Directed Graph BFS with adj map ******");
+        bfsAdjMap(adjMap,1);
     }
 
     private static Map<Integer, Set<Integer>> convertToAdjListDirected(int[][] edges){
@@ -24,7 +42,7 @@ public class GraphRepresentation {
             int parent = e[0];
             int child = e[1];
             adjList.computeIfAbsent(parent,k -> new HashSet<>()).add(child);
-            // to guarantee all childs in a map
+            // to guarantee all childs are in the map.
             adjList.computeIfAbsent(child,k -> new HashSet<>());
         }
         return adjList;
@@ -42,12 +60,12 @@ public class GraphRepresentation {
     }
 
     // Graph traversals are used for both traversing the vertices and edges.
-    private static void bfsUnDirected(Map<Integer,Set<Integer>> graph){
+    private static void bfs(Map<Integer,Set<Integer>> graph){
         // Select any source.
-        bfsUnDirected(graph,1);
+        bfs(graph,1);
     }
 
-    private static void bfsUnDirected(Map<Integer,Set<Integer>> graph, int source){
+    private static void bfs(Map<Integer,Set<Integer>> graph, int source){
         Set<Integer> visited = new HashSet<>();
         // Select any source.
         // If a matrix is added to queue, it is garunteed to be processed
@@ -59,7 +77,8 @@ public class GraphRepresentation {
         while(!q.isEmpty()){
             //System.out.println("Current value of queue is : "+q);
             int current = q.poll();
-            System.out.println(current + " ");
+            // This is process early as per algorithm design manual.
+            System.out.print(current + " ");
             for(int neighbour : graph.get(current)){
                 //System.out.println("Current visited is "+visited);
                 if(!visited.contains(neighbour)) {
@@ -70,5 +89,25 @@ public class GraphRepresentation {
             }
         }
     }
+
+    private static void bfsAdjMap(int[][] graph,int source){
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> q = new LinkedList<>();
+        visited.add(source);
+        q.add(source);
+        while(!q.isEmpty()){
+            int current = q.poll();
+            System.out.print(current + " ");
+            for(int i = 0; i < graph[0].length; i++){
+                final int neighbour = i;
+                if(graph[current][neighbour] != 0 && !visited.contains(neighbour)){
+                    q.add(neighbour);
+                    visited.add(neighbour);
+                }
+            }
+        }
+    }
+
+
 
 }
